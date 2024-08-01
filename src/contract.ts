@@ -1,3 +1,4 @@
+import { Value } from "@graphprotocol/graph-ts";
 import {
   AllowedSeaDropUpdated as AllowedSeaDropUpdatedEvent,
   Approval as ApprovalEvent,
@@ -37,8 +38,8 @@ export function handleAllowedSeaDropUpdated(
   let entity = new AllowedSeaDropUpdated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.allowedSeaDrop = event.params.allowedSeaDrop
-
+  // entity.allowedSeaDrop = event.params.allowedSeaDrop
+  entity.allowedSeaDrop = Value.fromAddressArray(event.params.allowedSeaDrop).toBytesArray();
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
